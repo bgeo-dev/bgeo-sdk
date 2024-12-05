@@ -1,0 +1,12 @@
+src/
+tests/
+coverage/
+.github/
+.git/
+.gitignore
+.eslintrc.json
+.prettierrc
+rollup.config.mjs
+tsconfig.json
+jest.config.mjs
+*.log
