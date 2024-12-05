@@ -11,6 +11,6 @@ describe('BgeoSDK Wallet Tests', () => {
         expect(wallet).toHaveProperty('privateKey');
         expect(wallet).toHaveProperty('publicKey');
         expect(wallet).toHaveProperty('mnemonic');
-        expect(wallet.address).toMatch(/^bo/); // BGEO 주소는 'bo'로 시작
+        expect(wallet.address).toMatch(/^bo/); // BGEO address starts with 'bo'
     });
 });
