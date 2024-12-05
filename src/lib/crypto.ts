@@ -27,8 +27,8 @@ export class CryptoService {
         const child = root.derivePath(path);
 
         return {
-            privateKey: child.privateKey?.toString('hex'),
-            publicKey: child.publicKey.toString('hex'),
+            privateKey: Buffer.from(child.privateKey || []).toString('hex'),
+            publicKey: Buffer.from(child.publicKey).toString('hex'),
             child
         };
     }

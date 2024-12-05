@@ -43,7 +43,7 @@ export class TransactionService {
                 index: input.vout,
                 witnessUtxo: {
                     script: Buffer.from(bitcoin.address.toOutputScript(input.address, this.network as BitcoinNetwork)),
-                    value: satoshiValue
+                    value: BigInt(satoshiValue)
                 },
             });
             inputAmount += satoshiValue;
@@ -53,7 +53,7 @@ export class TransactionService {
         const satoshiAmount = Number(new BigNumber(amount).multipliedBy(100000000).toFixed(0));
         psbt.addOutput({
             address: to,
-            value: satoshiAmount,
+            value: BigInt(satoshiAmount),
         });
 
         // 수수료 계산 및 거스름돈 출력 추가
@@ -62,7 +62,7 @@ export class TransactionService {
         if (changeAmount > 0) {
             psbt.addOutput({
                 address: from,
-                value: changeAmount
+                value: BigInt(changeAmount)
             });
         }
 
