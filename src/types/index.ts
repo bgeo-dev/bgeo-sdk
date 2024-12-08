@@ -28,6 +28,11 @@ export interface UTXO {
   address: string;
 }
 
+export interface TransferTarget {
+  address: string;
+  amount: string;
+}
+
 // transaction result type
 export interface TransactionResult {
   address: string;

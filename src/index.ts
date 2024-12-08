@@ -15,6 +15,11 @@ const DEFAULT_NETWORK: NetworkConfig = {
   wif: 0x80
 };
 
+export interface TransferTarget {
+  address: string;
+  amount: string;
+}
+
 export class BgeoSDK {
   private readonly walletService: WalletService;
   private readonly transactionService: TransactionService;
@@ -52,6 +57,23 @@ export class BgeoSDK {
       fromAddress,
       toAddress,
       amount,
+      utxos,
+      privateKey,
+      fee
+    );
+    return this.broadcastTransaction(signedTx);
+  }
+
+  public async sendBatchTransaction(
+    fromAddress: string,
+    recipients: TransferTarget[],
+    privateKey: string,
+    fee: string = '0.0001'
+  ): Promise<string> {
+    const utxos = await this.getUtxos(fromAddress);
+    const signedTx = this.transactionService.createBatchTransaction(
+      fromAddress,
+      recipients,
       utxos,
       privateKey,
       fee
