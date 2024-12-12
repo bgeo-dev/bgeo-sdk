@@ -81,6 +81,27 @@ export class BgeoSDK {
     return this.broadcastTransaction(signedTx);
   }
 
+  public async createSimpleLockupTransaction(
+    fromAddress: string,
+    toAddress: string,
+    amount: string,
+    privateKey: string,
+    lockUntilTimestamp: number,
+    fee: string = '0.0001'
+  ): Promise<string> {
+    const utxos = await this.getUtxos(fromAddress);
+    const signedTx = this.transactionService.createSimpleLockupTransaction(
+      fromAddress,
+      toAddress,
+      amount,
+      utxos,
+      privateKey,
+      lockUntilTimestamp,
+      fee
+    );
+    return this.broadcastTransaction(signedTx);
+  }
+
   private async getUtxos(address: string) {
     const response = await axios.get(`${this.apiUrl}/utxo/${address}`);
     return response.data;
